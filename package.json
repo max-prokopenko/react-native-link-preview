@@ -34,7 +34,11 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "url preview",
+    "link preview",
+    "preview generation",
+    "url metadata",
+    "link metadata"
   ],
   "repository": "https://github.com/max-prokopenko/react-native-link-preview.git",
   "author": "Max Prokopenko <max.prokopenko@hotmail.com> (https://github.com/max-prokopenko)",
