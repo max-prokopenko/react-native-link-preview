@@ -1,7 +1,7 @@
 {
   "name": "@lowkey/react-native-link-preview",
   "version": "0.1.0",
-  "description": "Generate preview for a link",
+  "description": "Get link metadata to show url preview in React Native.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -36,13 +36,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/max-prokopenko/lowkey-react-native-link-preview",
+  "repository": "https://github.com/max-prokopenko/react-native-link-preview.git",
   "author": "Max Prokopenko <max.prokopenko@hotmail.com> (https://github.com/max-prokopenko)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/max-prokopenko/lowkey-react-native-link-preview/issues"
+    "url": "https://github.com/max-prokopenko/react-native-link-preview/issues"
   },
-  "homepage": "https://github.com/max-prokopenko/lowkey-react-native-link-preview#readme",
+  "homepage": "https://github.com/max-prokopenko/react-native-link-preview#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

@@ -1,6 +1,5 @@
 # @lowkey/react-native-link-preview
-
-Generate preview for a link
+Get link metadata to show url preview in React Native. Metadata generation happens on native thread, so the JS thread stays unblocked with 60fps. Currently only supported on iOS, on Android returns empty strings for every field.
 
 ## Installation
 
@@ -8,14 +7,38 @@ Generate preview for a link
 npm install @lowkey/react-native-link-preview
 ```
 
+or 
+
+```sh
+yarn add @lowkey/react-native-link-preview
+```
+
+then install pods
+
+```sh
+cd ios/ && pod install
+```
+
 ## Usage
+### Get URL metadata
 
 ```js
-import ReactNativeLinkPreview from "@lowkey/react-native-link-preview";
+import LinkPreview from "@lowkey/react-native-link-preview";
 
 // ...
+const url = 'https://www.apple.com/ipad/';
+const metadata = await LinkPreview.generate(url);
 
-const result = await ReactNativeLinkPreview.multiply(3, 7);
+/*
+console.log(metadata);
+{
+    title: string;
+    type: string;
+    url: string;
+    imageURL: string;
+    description: string;
+}
+*/
 ```
 
 ## Contributing
