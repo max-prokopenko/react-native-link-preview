@@ -7,8 +7,6 @@
 
 RCT_EXPORT_MODULE()
 
-// Example method
-// See // https://reactnative.dev/docs/native-modules-ios
 
 + (BOOL)requiresMainQueueSetup
 {
@@ -25,23 +23,34 @@ RCT_REMAP_METHOD(generate,
                  withResolver:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSURL *URL = [NSURL URLWithString:inputUrl];
+    
+    if(URL == nil) {
+        [result setValue:@"error" forKey:@"status"];
+        [result setValue:@"Link url is malformed" forKey:@"message"];
+        return resolve(result);
+    }
 
     
     [LKLinkPreviewReader linkPreviewFromURL:URL completionHandler:^(NSArray *previews, NSError *error) {
+        
+        
         if (previews.count > 0  && ! error) {
             LKLinkPreview *preview = [previews firstObject];
-            
-            NSMutableDictionary *result = [NSMutableDictionary dictionary];
-            
+                                    
+            [result setValue:@"success" forKey:@"status"];
+            [result setValue:@"Link preview was successfully fetched" forKey:@"message"];
             [result setValue:preview.title forKey:@"title"];
             [result setValue:preview.type forKey:@"type"];
             [result setValue:preview.URL.absoluteString forKey:@"url"];
             [result setValue:preview.imageURL.absoluteString forKey:@"imageURL"];
             [result setValue:preview.linkDescription forKey:@"description"];
-            
-            resolve(result);
+        } else {
+            [result setValue:@"error" forKey:@"status"];
+            [result setValue:@"Link preview fetching failed" forKey:@"message"];
         }
+        return resolve(result);
     }];
     
 }
