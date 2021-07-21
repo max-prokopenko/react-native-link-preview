@@ -38,7 +38,10 @@
     "link preview",
     "preview generation",
     "url metadata",
-    "link metadata"
+    "link metadata",
+    "youtube link preview",
+    "spotify link preview",
+    "facebook link preview"
   ],
   "repository": "https://github.com/max-prokopenko/react-native-link-preview.git",
   "author": "Max Prokopenko <max.prokopenko@hotmail.com> (https://github.com/max-prokopenko)",

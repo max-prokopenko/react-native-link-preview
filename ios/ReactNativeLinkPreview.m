@@ -24,6 +24,12 @@ RCT_REMAP_METHOD(generate,
                  withRejecter:(RCTPromiseRejectBlock)reject)
 {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    NSString *youtubeMatcher = @"youtube.com/";
+    if (!([inputUrl rangeOfString:youtubeMatcher].location == NSNotFound)) {
+        return [self handleYoutubeLink:inputUrl resolve:resolve];
+    }
+    
     NSURL *URL = [NSURL URLWithString:inputUrl];
     
     if(URL == nil) {
@@ -31,7 +37,6 @@ RCT_REMAP_METHOD(generate,
         [result setValue:@"Link url is malformed" forKey:@"message"];
         return resolve(result);
     }
-
     
     [LKLinkPreviewReader linkPreviewFromURL:URL completionHandler:^(NSArray *previews, NSError *error) {
         
@@ -53,6 +58,58 @@ RCT_REMAP_METHOD(generate,
         return resolve(result);
     }];
     
+}
+
+-(void)handleYoutubeLink:(NSString *)inputUrl resolve:(RCTPromiseResolveBlock)resolve {
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    NSString *youtubeMetadataUrl = [[@"https://youtube.com/oembed?url=" stringByAppendingString:inputUrl] stringByAppendingString:@"&format=json"];
+    NSURL *URL = [NSURL URLWithString:youtubeMetadataUrl];
+    
+    if(URL == nil) {
+        [result setValue:@"error" forKey:@"status"];
+        [result setValue:@"Link url is malformed" forKey:@"message"];
+        return resolve(result);
+    }
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    [[session dataTaskWithURL:URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSInteger statusCode = 404;
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            statusCode = [(NSHTTPURLResponse *)response statusCode];
+        }
+        if (error || statusCode != 200) {
+            if (statusCode != 200 && error == nil) {
+                [result setValue:@"error" forKey:@"status"];
+                [result setValue:@"Link preview fetching failed" forKey:@"message"];
+            }
+            return resolve(result);
+        }
+        
+        // Success
+        if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+            NSError *jsonError;
+            NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            if (jsonError) {
+                [result setValue:@"error" forKey:@"status"];
+                [result setValue:@"Link preview fetching failed" forKey:@"message"];
+                resolve(result);
+            } else {
+                NSString *description = [[[@"Provided to " stringByAppendingString:jsonResponse[@"provider_name"]] stringByAppendingString:@" by "] stringByAppendingString:jsonResponse[@"author_name"]];
+                
+                [result setValue:@"success" forKey:@"status"];
+                [result setValue:@"Link preview was successfully fetched" forKey:@"message"];
+                [result setValue:jsonResponse[@"title"] forKey:@"title"];
+                [result setValue:@"youtube" forKey:@"type"];
+                [result setValue:inputUrl forKey:@"url"];
+                [result setValue:jsonResponse[@"thumbnail_url"] forKey:@"imageURL"];
+                [result setValue:description forKey:@"description"];
+                return resolve(result);
+            }
+        }
+            
+        
+    }] resume];
 }
 
 @end
