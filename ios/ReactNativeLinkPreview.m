@@ -95,15 +95,13 @@ RCT_REMAP_METHOD(generate,
                 [result setValue:@"Link preview fetching failed" forKey:@"message"];
                 resolve(result);
             } else {
-                NSString *description = [[[@"Provided to " stringByAppendingString:jsonResponse[@"provider_name"]] stringByAppendingString:@" by "] stringByAppendingString:jsonResponse[@"author_name"]];
-                
                 [result setValue:@"success" forKey:@"status"];
                 [result setValue:@"Link preview was successfully fetched" forKey:@"message"];
                 [result setValue:jsonResponse[@"title"] forKey:@"title"];
                 [result setValue:@"youtube" forKey:@"type"];
                 [result setValue:inputUrl forKey:@"url"];
                 [result setValue:jsonResponse[@"thumbnail_url"] forKey:@"imageURL"];
-                [result setValue:description forKey:@"description"];
+                [result setValue:jsonResponse[@"author_name"] forKey:@"description"];
                 return resolve(result);
             }
         }
