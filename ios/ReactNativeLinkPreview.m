@@ -26,7 +26,8 @@ RCT_REMAP_METHOD(generate,
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     
     NSString *youtubeMatcher = @"youtube.com/";
-    if (!([inputUrl rangeOfString:youtubeMatcher].location == NSNotFound)) {
+    NSString *youtubeMatcherShort = @"youtu.be/";
+    if ((!([inputUrl rangeOfString:youtubeMatcher].location == NSNotFound)) || (!([inputUrl rangeOfString:youtubeMatcherShort].location == NSNotFound))) {
         return [self handleYoutubeLink:inputUrl resolve:resolve];
     }
     
