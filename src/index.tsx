@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { NativeModules } from 'react-native';
 
 type ReactNativeLinkPreviewType = {
   generate(url: string): Promise<{
@@ -13,17 +13,7 @@ type ReactNativeLinkPreviewType = {
 const { ReactNativeLinkPreview } = NativeModules;
 
 const generatePreview = (url: string) => {
-  if (Platform.OS === 'ios') {
-    return ReactNativeLinkPreview.generate(url);
-  } else {
-    return {
-      title: '',
-      type: '',
-      url: '',
-      imageURL: '',
-      description: '',
-    };
-  }
+  return ReactNativeLinkPreview.generate(url);
 };
 
 const LinkPreview = {
