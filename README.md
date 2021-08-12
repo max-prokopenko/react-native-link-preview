@@ -1,5 +1,9 @@
 # @lowkey/react-native-link-preview
-Fully native link metadata generation to create link preview in React Native. Metadata generation happens on native thread, so the JS thread stays unblocked with 60fps. Currently only supported on iOS, on Android returns empty strings for every field. Supports most of the basic links, Spotify, Youtube and Facebook.
+Fully native link metadata generation to create link preview in React Native. Metadata generation happens on native thread, so the JS thread stays unblocked with 60fps. 
+
+Supports most of the basic links, Spotify, Youtube and Facebook.
+
+Supported on iOS and Android.
 
 
 https://user-images.githubusercontent.com/20337903/124804885-73a6ce00-df63-11eb-8a24-6dd5888dfafb.mov
