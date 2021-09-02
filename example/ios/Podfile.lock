@@ -22,7 +22,7 @@ PODS:
   - HTMLReader (2.1.7)
   - LinkPreviewKit (0.4.1):
     - HTMLReader
-  - lowkey-react-native-link-preview (0.1.0):
+  - lowkey-react-native-link-preview (0.2.0):
     - LinkPreviewKit
     - React-Core
   - RCTRequired (0.63.4)
@@ -355,7 +355,7 @@ SPEC CHECKSUMS:
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   HTMLReader: ee1916031d637f3dd6865c048ee81f8dd4a1dda8
   LinkPreviewKit: d16933bdb90ad21bde386285abcb9dc207fabfdb
-  lowkey-react-native-link-preview: 8adff5336096068ebf95e02d823c4c7f0e26e157
+  lowkey-react-native-link-preview: 238bc1a5ed9a69c753592bb2dd1ec25254a86619
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
   React: b0a957a2c44da4113b0c4c9853d8387f8e64e615
