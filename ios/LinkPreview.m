@@ -26,13 +26,16 @@
             
         if (previews.count > 0 && ! error) {
             LKLinkPreview *preview = [previews firstObject];
+            
+            NSURL *imageURL = [NSURL URLWithString:preview.imageURL.absoluteString relativeToURL:URL];
+            NSURL *linkURL = [NSURL URLWithString:preview.URL.absoluteString relativeToURL:URL];
                                     
             [result setValue:@"success" forKey:@"status"];
             [result setValue:@"Link preview was successfully fetched" forKey:@"message"];
             [result setValue:preview.title forKey:@"title"];
             [result setValue:preview.type forKey:@"type"];
-            [result setValue:preview.URL.absoluteString forKey:@"url"];
-            [result setValue:preview.imageURL.absoluteString forKey:@"imageURL"];
+            [result setValue:[linkURL absoluteString] forKey:@"url"];
+            [result setValue:[imageURL absoluteString] forKey:@"imageURL"];
             [result setValue:preview.linkDescription forKey:@"description"];
         } else {
             [result setValue:@"error" forKey:@"status"];
